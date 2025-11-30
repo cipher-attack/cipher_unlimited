@@ -20,6 +20,10 @@ export const generateResponseStream = async (
   onChunk: (text: string, isImage?: boolean) => void
 ): Promise<string> => {
   
+  if (!apiKey) {
+      throw new Error("API Key is missing from configuration. Please check Vercel environment variables.");
+  }
+
   // Prepare contents from history
   const formattedHistory = history
     .filter(msg => msg.role !== 'system' && !msg.isThinking)
