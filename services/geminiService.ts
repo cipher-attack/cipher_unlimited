@@ -1,9 +1,8 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { ModelType, Message, Attachment } from "../types";
 
-// Prioritize VERCEL_API_KEY, fallback to standard API_KEY
-const apiKey = process.env.VERCEL_API_KEY || process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+// API Key must be obtained exclusively from process.env.API_KEY
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateResponseStream = async (
   history: Message[],
@@ -90,11 +89,6 @@ export const generateResponseStream = async (
 
   if (enableThinking && model === ModelType.PRO) {
       config.thinkingConfig = { thinkingBudget: thinkingBudget };
-  }
-
-  // Fallback for missing API key
-  if (!apiKey) {
-      throw new Error("API Key is missing. Please set VERCEL_API_KEY or API_KEY in your environment.");
   }
 
   try {
