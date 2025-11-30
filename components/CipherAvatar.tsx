@@ -29,6 +29,7 @@ export const CipherAvatar: React.FC<{ className?: string }> = ({ className = "w-
     
     {/* Central Energy Source */}
     <circle cx="50" cy="50" r="8" fill="#ecfdf5" filter="url(#glow-avatar)">
+      {/* @ts-ignore */}
       <animate attributeName="opacity" values="0.8;1;0.8" duration="3s" repeatCount="indefinite" />
     </circle>
     
