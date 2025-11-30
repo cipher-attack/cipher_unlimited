@@ -14,9 +14,8 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
     },
     define: {
-      // This allows the code to access process.env.VERCEL_API_KEY even in the browser
+      // Prioritize VERCEL_API_KEY from environment, then API_KEY
       'process.env.VERCEL_API_KEY': JSON.stringify(process.env.VERCEL_API_KEY || env.VERCEL_API_KEY),
-      // Fallback for standard API_KEY
       'process.env.API_KEY': JSON.stringify(process.env.API_KEY || env.API_KEY),
     }
   }
