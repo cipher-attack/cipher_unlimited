@@ -239,12 +239,12 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
       )}
 
       {/* Input Bar */}
-      <div className="relative flex items-end gap-2 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-2 rounded-2xl border border-zinc-200 dark:border-white/5 shadow-lg dark:shadow-2xl transition-colors duration-300">
+      <div className="relative flex items-end gap-2 bg-white dark:bg-[#18181b] p-2 rounded-2xl border border-zinc-200 dark:border-zinc-700 shadow-lg dark:shadow-black/50 transition-colors duration-300">
         
         {/* Upload Button */}
         <button 
           onClick={() => fileInputRef.current?.click()}
-          className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-xl transition-colors"
+          className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
           disabled={isLoading}
           title="Attach images, code, PDF, or audio"
         >
@@ -261,7 +261,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
         {/* Camera Button */}
         <button
             onClick={startCamera}
-            className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-xl transition-colors hidden xs:block"
+            className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors hidden xs:block"
             disabled={isLoading}
             title="Cipher Vision (Camera)"
         >
@@ -285,7 +285,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
           className={`p-3 rounded-xl transition-all duration-300 relative overflow-hidden ${
              isListening 
              ? 'bg-red-500/10 text-red-500' 
-             : 'text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-white/5'
+             : 'text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
           }`}
           title="Voice Input"
         >
