@@ -134,7 +134,33 @@ const App: React.FC = () => {
         console.error("App Generation Error:", error);
         
         let errorMessage = "An unknown error occurred.";
-        if (error.message) errorMessage = error.message;
+        if (error.message) {
+             errorMessage = error.message;
+             
+             // Try to parse JSON error from API
+             const jsonMatch = errorMessage.match(/\{.*}/s);
+             if (jsonMatch) {
+                 try {
+                     const errorObj = JSON.parse(jsonMatch[0]);
+                     if (errorObj.error) {
+                        // Handle 429 Resource Exhausted
+                        if (errorObj.error.code === 429 || errorObj.error.status === 'RESOURCE_EXHAUSTED') {
+                             errorMessage = "⚠️ **Quota Exceeded (Rate Limit)**\n\nYou have reached the usage limit for the free tier of this model. Please wait a minute before trying again.";
+                             
+                             const retryDelay = errorObj.error.details?.find((d: any) => d.retryDelay)?.retryDelay;
+                             if (retryDelay) {
+                                 errorMessage += `\n\n**Retry available in:** ${retryDelay}`;
+                             }
+                        } else {
+                             errorMessage = `**API Error:** ${errorObj.error.message}`;
+                        }
+                     }
+                 } catch (e) {
+                     // If parsing fails, use the raw message but cleaned up
+                     errorMessage = error.message;
+                 }
+             }
+        }
         
         // Enhance error message for typical missing key scenario
         if (errorMessage.includes("400") || errorMessage.includes("API key")) {
@@ -145,7 +171,7 @@ const App: React.FC = () => {
             if (msg.id === botMessageId) {
                 return {
                     ...msg,
-                    content: `**System Error:** ${errorMessage}`,
+                    content: errorMessage,
                     isThinking: false
                 };
             }
