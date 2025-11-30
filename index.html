@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cipher</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN for Preview/Dev Mode -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            screens: {
+              'xs': '400px',
+            }
+          },
+        },
+      }
+    </script>
+
+    <!-- Import Map for dependencies -->
+    <script type="importmap">
+    {
+      "imports": {
+        "vite": "https://aistudiocdn.com/vite@^7.2.4",
+        "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+        "react/": "https://aistudiocdn.com/react@^19.2.0/",
+        "react": "https://aistudiocdn.com/react@^19.2.0",
+        "react-syntax-highlighter/": "https://aistudiocdn.com/react-syntax-highlighter@^16.1.0/",
+        "react-syntax-highlighter": "https://aistudiocdn.com/react-syntax-highlighter@^16.1.0",
+        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+        "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0"
+      }
+    }
+    </script>
+
+    <!-- Global Styles (Restored for Preview) -->
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+      }
+
+      .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #050505; 
+        color: #e4e4e7;
+        overflow-x: hidden;
+      }
+
+      /* Light Mode Body Override handled by class */
+      html:not(.dark) body {
+        background-color: #f4f4f5;
+        color: #18181b;
+      }
+
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #a1a1aa; 
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #27272a; 
+        border: 2px solid #09090b;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #71717a; 
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #3f3f46; 
+      }
+
+      /* Advanced Background Effects */
+      .cyber-bg {
+        position: relative;
+        min-height: 100vh;
+        transition: background-color 0.3s ease;
+      }
+
+      /* LIGHT MODE BG */
+      html:not(.dark) .cyber-bg {
+        background-color: #f4f4f5;
+        background-image: 
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      html:not(.dark) .cyber-bg::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 100vh;
+        background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05) 0%, rgba(244, 244, 245, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* DARK MODE BG */
+      html.dark .cyber-bg {
+        background-color: #050505;
+        background-image: 
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+
+      html.dark .cyber-bg::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 100vh;
+        background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      html.dark .cyber-bg::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 90%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .glow-text {
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

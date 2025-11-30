@@ -1,0 +1,8 @@
+{
+  "name": "Cipher_unlimited",
+  "description": "A high-performance, unrestricted thinking AI interface capable of deep reasoning and multimodal interaction.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
