@@ -285,7 +285,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer Input */}
-      <footer className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md">
+      <footer className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-[#050505]/90 backdrop-blur-md relative z-10">
         <ChatInput onSendMessage={handleSendMessage} isLoading={isGenerating} />
       </footer>
     </div>
