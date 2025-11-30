@@ -144,13 +144,23 @@ const App: React.FC = () => {
             updateBotMessage
         );
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Generation error", error);
+        
+        // Extract specific error message for debugging
+        let errorMessage = "I encountered an issue processing your request.";
+        if (error.message) {
+            errorMessage += ` Details: ${error.message}`;
+            if (error.message.includes("API Key")) {
+                errorMessage = "Configuration Error: Invalid or Missing API Key. Please check Vercel settings.";
+            }
+        }
+
         setMessages(prev => prev.map(msg => {
             if (msg.id === botMessageId) {
                 return {
                     ...msg,
-                    content: "**System Error:** I encountered an issue processing your request. Please try again.",
+                    content: `**System Error:** ${errorMessage}`,
                     isThinking: false
                 };
             }
@@ -224,7 +234,8 @@ const App: React.FC = () => {
             </div>
         </div>
 
-        <div className="flex items-center gap-2 md:gap-4 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-end md:justify-end">
+        {/* CONTROLS CONTAINER - UPDATED ALIGNMENT FOR MOBILE */}
+        <div className="flex items-center gap-2 md:gap-4 w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0 justify-start md:justify-end">
             
             {/* Theme Toggle */}
             <div className="flex bg-zinc-100 dark:bg-zinc-900/50 p-1 rounded-lg border border-zinc-200 dark:border-zinc-800/50 shrink-0">
