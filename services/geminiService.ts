@@ -1,8 +1,14 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { ModelType, Message, Attachment } from "../types";
 
-// API Key must be obtained exclusively from process.env.API_KEY
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Robust API Key Retrieval: Checks Vercel specific env var first, then standard key
+const apiKey = process.env.VERCEL_API_KEY || process.env.API_KEY;
+
+if (!apiKey) {
+  console.warn("Cipher Warning: API Key is missing. Ensure VERCEL_API_KEY is set in Vercel Environment Variables.");
+}
+
+const ai = new GoogleGenAI({ apiKey: apiKey || "MISSING_KEY" });
 
 export const generateResponseStream = async (
   history: Message[],
