@@ -14,6 +14,7 @@ export const UserAvatar: React.FC<{ className?: string }> = ({ className = "w-6 
     
     {/* Outer decorative ring */}
     <circle cx="50" cy="50" r="46" stroke="white" strokeWidth="1" opacity="0.3" strokeDasharray="4 4">
+        {/* @ts-ignore */}
         <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" duration="30s" repeatCount="indefinite" />
     </circle>
 
@@ -27,14 +28,17 @@ export const UserAvatar: React.FC<{ className?: string }> = ({ className = "w-6 
       strokeDasharray="120"
       strokeDashoffset="120"
     >
+       {/* @ts-ignore */}
        <animate attributeName="stroke-dashoffset" values="120;0;0;120" keyTimes="0;0.4;0.7;1" duration="5s" repeatCount="indefinite" />
     </path>
     
     {/* Glowing particles at tips */}
     <circle cx="32" cy="32" r="3" fill="white">
+         {/* @ts-ignore */}
          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.7;1" duration="5s" repeatCount="indefinite" />
     </circle>
     <circle cx="68" cy="32" r="3" fill="white">
+         {/* @ts-ignore */}
          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.3;0.5;1" duration="5s" repeatCount="indefinite" />
     </circle>
   </svg>
