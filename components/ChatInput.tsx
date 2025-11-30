@@ -170,7 +170,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
             <img 
                 src={`data:${att.mimeType};base64,${att.data}`} 
                 alt="preview" 
-                className="h-16 w-16 object-cover rounded-lg border border-zinc-300 dark:border-zinc-700/50"
+                className="h-16 w-16 object-cover rounded-lg border border-zinc-300"
             />
           );
       }
@@ -181,9 +181,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
       else if (att.mimeType.includes('text') || att.mimeType.includes('javascript') || att.mimeType.includes('json')) Icon = Code;
 
       return (
-          <div className="h-16 w-16 bg-zinc-100 dark:bg-zinc-800 rounded-lg border border-zinc-300 dark:border-zinc-700/50 flex flex-col items-center justify-center p-1">
-              <Icon size={20} className="text-emerald-600 dark:text-emerald-400 mb-1" />
-              <span className="text-[8px] text-zinc-600 dark:text-zinc-400 w-full text-center truncate px-1">{att.fileName}</span>
+          <div className="h-16 w-16 bg-zinc-100 rounded-lg border border-zinc-300 flex flex-col items-center justify-center p-1">
+              <Icon size={20} className="text-emerald-600 mb-1" />
+              <span className="text-[8px] text-zinc-600 w-full text-center truncate px-1">{att.fileName}</span>
           </div>
       );
   };
@@ -238,13 +238,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
         </div>
       )}
 
-      {/* Input Bar */}
-      <div className="relative flex items-end gap-2 bg-white dark:bg-[#18181b] p-2 rounded-2xl border border-zinc-200 dark:border-zinc-700 shadow-lg dark:shadow-black/50 transition-colors duration-300">
+      {/* Input Bar - FORCED WHITE BACKGROUND FOR CONTRAST IN DARK MODE */}
+      <div className="relative flex items-end gap-2 bg-white p-2 rounded-2xl border border-zinc-200 shadow-lg transition-all duration-300">
         
         {/* Upload Button */}
         <button 
           onClick={() => fileInputRef.current?.click()}
-          className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
+          className="p-3 text-zinc-500 hover:text-emerald-600 hover:bg-zinc-100 rounded-xl transition-colors"
           disabled={isLoading}
           title="Attach images, code, PDF, or audio"
         >
@@ -261,7 +261,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
         {/* Camera Button */}
         <button
             onClick={startCamera}
-            className="p-3 text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors hidden xs:block"
+            className="p-3 text-zinc-500 hover:text-blue-500 hover:bg-zinc-100 rounded-xl transition-colors hidden xs:block"
             disabled={isLoading}
             title="Cipher Vision (Camera)"
         >
@@ -274,7 +274,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
           onChange={autoResize}
           onKeyDown={handleKeyDown}
           placeholder="Ask Cipher anything..."
-          className="flex-1 bg-transparent text-zinc-800 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm p-3 focus:outline-none resize-none max-h-48 overflow-y-auto font-light leading-relaxed"
+          className="flex-1 bg-transparent text-zinc-900 placeholder-zinc-500 text-sm p-3 focus:outline-none resize-none max-h-48 overflow-y-auto font-light leading-relaxed"
           rows={1}
           disabled={isLoading}
         />
@@ -285,7 +285,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
           className={`p-3 rounded-xl transition-all duration-300 relative overflow-hidden ${
              isListening 
              ? 'bg-red-500/10 text-red-500' 
-             : 'text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+             : 'text-zinc-500 hover:text-emerald-600 hover:bg-zinc-100'
           }`}
           title="Voice Input"
         >
@@ -304,7 +304,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
           disabled={isLoading || (!input.trim() && attachments.length === 0)}
           className={`p-3 rounded-xl transition-all duration-300 ${
              isLoading || (!input.trim() && attachments.length === 0)
-             ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
+             ? 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
              : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]'
           }`}
         >
